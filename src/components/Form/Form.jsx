@@ -3,10 +3,11 @@ import css from './Form.module.css';
 import PropTypes from 'prop-types';
 
 export function Form({ onSubmit, addContacts, contacts }) {
-  const { name, setName } = useState('');
-  const { number, setNumber } = useState('');
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleChange = event => {
+    console.log(event.currentTarget.value);
     const { name, value } = event.currentTarget;
     switch (name) {
       case 'name':
@@ -22,8 +23,8 @@ export function Form({ onSubmit, addContacts, contacts }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({ ...name, ...number });
-    addContacts({ ...name, ...number });
+    onSubmit({ name, number });
+    addContacts({ name, number });
     if (
       [...contacts].find(contact =>
         contact.name.includes(event.target.name.value)
