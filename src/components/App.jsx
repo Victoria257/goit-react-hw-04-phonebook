@@ -9,18 +9,26 @@ function App() {
   const [contacts, setContacts] = useState([]);
   const [filterContact, setFilterContact] = useState('');
 
-  const contactsList = JSON.parse(localStorage.getItem('contacts'));
   useEffect(() => {
-    if (!contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    } else {
+    const contactsList = JSON.parse(localStorage.getItem('contacts'));
+    if (contacts.length === 0) {
       contactsList && setContacts(contactsList);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    } else localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
+
+  //це працює тільки локально
+  // const contactsList = JSON.parse(localStorage.getItem('contacts'));
+  // useEffect(() => {
+  //   if (!contacts) {
+  //     localStorage.setItem('contacts', JSON.stringify(contacts));
+  //   } else {
+  //     contactsList && setContacts(contactsList);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
   const formSubmitHandler = data => {
     console.log(data);
