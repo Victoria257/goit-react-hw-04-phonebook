@@ -6,14 +6,21 @@ import ContactList from 'components/ContactList/ContactList';
 import FilterContacts from './FilterContacts/FilterContacts';
 
 function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(localStorage.getItem('contacts')) ?? [];
+  });
   const [filterContact, setFilterContact] = useState('');
 
+  // робочий варіант (якщо не хочеш писати в стейт, але трохи довший)
+  // useEffect(() => {
+  //   const contactsList = JSON.parse(localStorage.getItem('contacts'));
+  //   if (contacts.length === 0) {
+  //     contactsList && setContacts(contactsList);
+  //   } else localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
+
   useEffect(() => {
-    const contactsList = JSON.parse(localStorage.getItem('contacts'));
-    if (contacts.length === 0) {
-      contactsList && setContacts(contactsList);
-    } else localStorage.setItem('contacts', JSON.stringify(contacts));
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
   //це працює тільки локально
